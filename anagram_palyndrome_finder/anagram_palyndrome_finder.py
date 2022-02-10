@@ -31,7 +31,7 @@ def parse_page(content):
 def clean_data(data_list):
     """
     Takes a list of strings and splits multi-word strings into single word
-    elements. 
+    elements.
     Appends the split elements having more than 2 letters to a new list
     unless the element is already in the list.
     Returns the new list.
@@ -63,7 +63,7 @@ parsed_list = parse_page(web_content)
 data_strings = clean_data(parsed_list)
 
 anagrams = [anpatools.Anagram(n) for n in data_strings]
-for anagram in anagrams[:10]:
+for anagram in anagrams[:5]:
     print(anagram.get_anagrams())
 
 palindromes = [anpatools.Palyndrome(n) for n in data_strings]
