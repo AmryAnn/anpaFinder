@@ -63,7 +63,7 @@ parsed_list = parse_page(web_content)
 data_strings = clean_data(parsed_list)
 
 anagrams = [anpatools.Anagram(n) for n in data_strings]
-for anagram in anagrams:
+for anagram in anagrams[:10]:
     print(anagram.get_anagrams())
 
 palindromes = [anpatools.Palyndrome(n) for n in data_strings]
