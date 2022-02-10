@@ -12,5 +12,9 @@ Expected Output - Printed to the terminal:
 - A list of all improper/proper anagrams for each parsed word.
 - Any palindromes that were parsed.
 
+Future Features:
+- More organized output - Results in dictionary form saved to a file in addition to being printed to the terminal.
+- Improved text clean-up prior to getting anagrams and finding palindromes.
+
 Author, Contact Information:
 Amy Ridings, aaridings@gmail.com
