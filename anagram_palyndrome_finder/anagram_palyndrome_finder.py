@@ -32,7 +32,6 @@ def clean_data(data_list):
     """
     Takes a list of strings and splits multi-word strings into single word
     elements. Appends the split elements to a new list. Returns the new list.
-
     """
     string_list = []
     for items in data_list:
@@ -46,6 +45,7 @@ def clean_data(data_list):
 parser = argparse.ArgumentParser(description='Process web url.')
 parser.add_argument('--url', type=str, required=True,\
                     help='Web address to the page to analyze.')
+
 
 #Assign command line arguments
 args = parser.parse_args()
