@@ -11,22 +11,17 @@ import argparse
 import anpatools
 
 def access_webpage(url):
-    '''Opens URL and reads webpage'''
+    """
+    Opens and reads a webpage from URL and returns raw HTML from webpage.
+    """
     webpage = urllib.request.urlopen(url)
     content = webpage.read().decode()
     return content
 
 def parse_page(content):
     """
-    Parameters
-    ----------
-    content : str
-        Raw HTML text.
-
-    Returns
-    -------
-    parsed_data : list
-        A list of strings parsed from <p> tags in raw HTML text.
+    Takes raw html as input and parses text from <p> tags.
+    Returns a list of parsed text
     """
     pars = anpatools.ParserHTML()
     pars.feed(str(content))
@@ -35,15 +30,8 @@ def parse_page(content):
 
 def clean_data(data_list):
     """
-    Parameters
-    ----------
-    data_list : list
-        A list of strings, each element may have one or more words.
-
-    Returns
-    -------
-    string_list : list
-        A new list of strings, each element being a single word.
+    Takes a list of strings and splits multi-word strings into single word
+    elements. Appends the split elements to a new list. Returns the new list.
     """
     string_list = []
     for items in data_list:
@@ -58,7 +46,8 @@ parser = argparse.ArgumentParser(description='Process web url.')
 parser.add_argument('--url', type=str, required=True,\
                     help='Web address to the page to analyze.')
 
-#Assign command line arguments'
+
+#Assign command line arguments
 args = parser.parse_args()
 URL = args.url
 

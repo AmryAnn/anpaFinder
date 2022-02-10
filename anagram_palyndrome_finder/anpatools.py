@@ -8,9 +8,8 @@ Created on Thu Feb 10 05:48:02 2022
 import itertools
 from html.parser import HTMLParser
 
-class StringProcessing:
-    ''' Stores and processes a string '''
-
+class StringObject:
+    """Various functions for stored strings"""
     def __init__(self, string=None, sub_string=None, load_file=None, save_file=None):
         self.string = string
         self.sub_string = sub_string
@@ -18,77 +17,109 @@ class StringProcessing:
         self.save_file = save_file
 
     def __repr__(self):
+        """Return a string representation of string object"""
         return self.string
 
     def append(self, sub_string):
-        ''' Appends a sub string to the class object,
-        and returns the appended string'''
+        """
+        Appends a sub_string to string, and returns the appended string.
+
+        >>> test = StringObject()
+        >>> test.string = 'This is my string'
+        >>> print(test.string)
+        This is my string
+        >>> test.sub_string = ', but only for now.'
+        >>> print(test.append(test.sub_string))
+        This is my string, but only for now.
+        """
         self.string = str(self.string) + sub_string
         return self.string
 
     def remove(self, sub_string):
-        ''' Removes a substring from the class object, and returns
-        the truncated string'''
+        """
+        Removes a sub_string from string, and returns the truncated string.
+
+        >>> test = StringObject()
+        >>> test.string = 'This is my string, but only for now.'
+        >>> print(test.string)
+        This is my string, but only for now.
+        >>> test.sub_string = ', but only for now.'
+        >>> print(test.remove(test.sub_string))
+        This is my string
+        >>> test.sub_string = 'This is my string,'
+        >>> print(test.remove(test.sub_string))
+        but only for now.
+        """
         self.string = self.string.replace(sub_string, '')
         return self.string
 
     def mirror_string(self):
-        ''' Returns the mirrored string'''
+        """
+        Returns the mirrored string of string.
+
+        >>> test = StringObject()
+        >>> test.string = 'This is my string'
+        >>> print(test.string)
+        This is my string
+        >>> print(test.mirror_string())
+        gnirts ym si sihT
+        """
         mirror = self.string[::-1]
         return mirror
 
     def load_string(self, load_file):
-        ''' Loads a string from a file and returns that string'''
+        """Loads a string from load_file and returns that string."""
         with open(load_file) as self.string:
             self.string = self.string.read()
         return self.string
 
     def save_string(self, save_file):
-        ''' Saves the string to a file'''
+        """Saves the string to save_file."""
         with open(save_file, 'w') as saved:
             saved.write(self.string)
 
 
-class Anagram(StringProcessing):
-    '''A child class of StringProcessing for finding anagrams'''
-
+class Anagram(StringObject):
+    """Inherits from StringObject class and can get anagrams of string."""
     def __init__(self, string):
-        StringProcessing.__init__(self)
+        StringObject.__init__(self)
         self.string = string
 
     def get_anagrams(self):
-        '''Takes a string and returns the string's anagrams'''
+        """Takes string and returns a list of string's anagrams."""
         anagrams = [''.join(perm) for perm in itertools.permutations(self.string)]
         return anagrams
 
 
-class Palyndrome(StringProcessing):
-    '''A child class of StringProcessing for identifying palindromes'''
-
+class Palyndrome(StringObject):
+    """Inherits from StringObject and can identify palindromes."""
     def __init__(self, string):
-        StringProcessing.__init__(self)
+        StringObject.__init__(self)
         self.string = string
 
     def find_palindromes(self):
-        '''Checks if mirrored string is equal to string'''
-        mirror = StringProcessing.mirror_string(self)
+        """Checks if mirrored string is equal to string.
+        If true, returns the mirrored string."""
+        mirror = StringObject.mirror_string(self)
         if mirror == str(self.string):
-            return mirror
+            palindrome = mirror
+        return palindrome
 
 
 class ParserHTML(HTMLParser):
+    """Inherits from HTMLParser in python standard library.
+    Parses text from inside <p> tags, adds text to a list, returns the list"""
     data_list = []
     def __init__(self):
         HTMLParser.__init__(self)
-        self.IsData = False
+        self.is_data = False
     def handle_starttag(self, tag, attrs):
         if tag == 'p':
-            self.IsData = True
+            self.is_data = True
     def handle_endtag(self, tag):
         if tag == 'p':
-            self.IsData = False
+            self.is_data = False
     def handle_data(self, data):
-        if self.IsData:
+        if self.is_data:
             self.data_list.append(data)
-        #print(self.data_list)
         return self.data_list
