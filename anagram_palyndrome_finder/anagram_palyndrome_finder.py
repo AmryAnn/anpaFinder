@@ -31,13 +31,19 @@ def parse_page(content):
 def clean_data(data_list):
     """
     Takes a list of strings and splits multi-word strings into single word
-    elements. Appends the split elements to a new list. Returns the new list.
+    elements. 
+    Appends the split elements having more than 2 letters to a new list
+    unless the element is already in the list.
+    Returns the new list.
     """
     string_list = []
     for items in data_list:
         words = items.split(' ')
         for word in words:
-            string_list.append(word)
+            if (len(word) > 2) and (word not in string_list):
+                string_list.append(word)
+                if word.startswith('['):
+                    string_list.remove(word)
     return string_list
 
 
