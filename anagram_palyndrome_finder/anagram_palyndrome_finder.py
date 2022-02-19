@@ -7,6 +7,7 @@ Created on Thu Feb 10 05:59:03 2022
 
 import urllib.request
 import argparse
+import string
 
 import anpatools
 
@@ -30,16 +31,31 @@ def parse_page(content):
 
 def clean_data(data_list):
     """
-    Takes a list of strings and splits multi-word strings into single word
-    elements. Appends the split elements to a new list. Returns the new list.
+    Takes a list of strings and iterates through the list to make all letters 
+    lowercase and remove punctuation. Appends the cleaned strings to a new 
+    list. Returns the new list.
 
     """
     string_list = []
-    for items in data_list:
+    for item in data_list:
+        item = item.lower()
+        item = item.translate(str.maketrans('', '', string.punctuation))
+        string_list.append(item)
+    return string_list
+
+def split_sentence(string_list):
+    """
+    Takes a list of sentences or multi-word strings and iterates through the 
+    list to split each sentence into a list of words. Iterates through the 
+    words, and appends each word once to a new list. Returns new list.
+    """
+    word_list = []
+    for items in string_list:
         words = items.split(' ')
         for word in words:
-            string_list.append(word)
-    return string_list
+            if word != '' and word not in word_list:
+                word_list.append(word)
+    return word_list
 
 
 #Add command line argument
@@ -51,17 +67,31 @@ parser.add_argument('--url', type=str, required=True,\
 args = parser.parse_args()
 URL = args.url
 
+# # #TEST
+# URL = "https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html"
+
 #Function calls
 web_content = access_webpage(URL)
 parsed_list = parse_page(web_content)
 data_strings = clean_data(parsed_list)
+data_words = split_sentence(data_strings)
 
-anagrams = [anpatools.Anagram(n) for n in data_strings]
-for anagram in anagrams:
-    print(anagram.get_anagrams())
+anagrams = anpatools.Anagram()
+anagrams.find_anagrams(data_words)
 
-palindromes = [anpatools.Palyndrome(n) for n in data_strings]
-for palindrome in palindromes:
-    pal = palindrome.find_palindromes()
+palindromes = [anpatools.Palyndrome(n) for n in data_words]
+for palyndrome in palindromes:
+    pal = palyndrome.find_palindromes()
     if pal is not None:
         print(pal)
+
+# #Test
+# URL = "https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html"
+# web_content = access_webpage(URL)
+# print(web_content)
+# parsed_list = parse_page(web_content)
+# print(parsed_list)
+# data_strings = clean_data(parsed_list)
+# print(data_strings)
+# data_words = split_sentence(data_strings)
+# print(data_words)
