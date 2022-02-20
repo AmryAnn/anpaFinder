@@ -10,12 +10,25 @@ To run this program:
 			./AP_finder.bash -w "https://any.url.address/you/choose"
 
 Expected Output - Printed to the terminal:
+<<<<<<< HEAD
 - Lists of anagram groups found on the webpage
 - Any palindromes that were parsed.
 
 Future Features:
 - More organized output - Results in dictionary form saved to a file in addition to being printed to the terminal.
 
+=======
+- A list of all improper/proper anagrams for parsed words (currently limited to first five parsed words 
+to save time).
+- Any palindromes that were parsed.
+
+Future Features:
+- More organized output - All results in dictionary form saved to a file in addition to first five being 
+printed to the terminal.
+- Improved text clean-up prior to getting anagrams and finding palindromes.
+- Anatree-type algorithm to find proper words for anagrams.
+- Test suite
+>>>>>>> main
 
 Author, Contact Information:
 Amy Ridings, aaridings@gmail.com
