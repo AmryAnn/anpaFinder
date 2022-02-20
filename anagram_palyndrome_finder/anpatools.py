@@ -7,14 +7,17 @@ Created on Thu Feb 10 05:48:02 2022
 
 import itertools
 from html.parser import HTMLParser
+from collections import Counter, defaultdict
+
 
 class StringObject:
     """Various functions for stored strings"""
-    def __init__(self, string=None, sub_string=None, load_file=None, save_file=None):
+    def __init__(self, string):
         self.string = string
-        self.sub_string = sub_string
-        self.load_file = load_file
-        self.save_file = save_file
+        self.sub_string = None
+        self.load_file = None
+        self.save_file = None
+
 
     def __repr__(self):
         """Return a string representation of string object"""
@@ -64,7 +67,7 @@ class StringObject:
         >>> print(test.mirror_string())
         gnirts ym si sihT
         """
-        mirror = self.string[::-1]
+        mirror = str(self.string[::-1])
         return mirror
 
     def load_string(self, load_file):
@@ -81,12 +84,22 @@ class StringObject:
 
 class Anagram(StringObject):
     """Inherits from StringObject class and can get anagrams of string."""
-    def __init__(self, string):
-        StringObject.__init__(self)
-        self.string = string
+    def __init__(self):
+        super().__init__(self)
+        self.string = None
+        self.words = []
 
-    def get_anagrams(self):
-        """Takes string and returns a list of string's anagrams."""
+    def find_anagrams(self, words):
+        anagramsDict = defaultdict(list)
+        self.words = words
+        for word in words:
+            if len(word) > 2:
+                anagramsDict[frozenset(dict(Counter(word)).items())].append(word)
+        return [anagrams for key, anagrams in anagramsDict.items() if len(anagrams) > 1]
+
+
+    def create_all_anagrams(self, string):
+        """Takes string and returns a list of string's anagrams (permutations)."""
         anagrams = [''.join(perm) for perm in itertools.permutations(self.string)]
         return anagrams
 
@@ -94,16 +107,16 @@ class Anagram(StringObject):
 class Palyndrome(StringObject):
     """Inherits from StringObject and can identify palindromes."""
     def __init__(self, string):
-        StringObject.__init__(self)
+        super().__init__(self)
         self.string = string
 
     def find_palindromes(self):
         """Checks if mirrored string is equal to string.
         If true, returns the mirrored string."""
         mirror = StringObject.mirror_string(self)
-        if mirror == str(self.string):
+        if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
-        return palindrome
+            return palindrome
 
 
 class ParserHTML(HTMLParser):
