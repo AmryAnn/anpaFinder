@@ -79,7 +79,8 @@ data_strings = clean_data(parsed_list)
 data_words = split_sentence(data_strings)
 
 anagrams = anpatools.Anagram()
-print(anagrams.find_anagrams(data_words))
+anagram_groups = anagrams.find_anagrams(data_words)
+print(anagram_groups)
 
 palindromes = [anpatools.Palyndrome(n) for n in data_words]
 for palyndrome in palindromes:
