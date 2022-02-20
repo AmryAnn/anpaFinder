@@ -31,18 +31,9 @@ def parse_page(content):
 
 def clean_data(data_list):
     """
-<<<<<<< HEAD
     Takes a list of strings and iterates through the list to make all letters 
     lowercase and remove punctuation. Appends the cleaned strings to a new 
     list. Returns the new list.
-
-=======
-    Takes a list of strings and splits multi-word strings into single word
-    elements.
-    Appends the split elements having more than 2 letters to a new list
-    unless the element is already in the list.
-    Returns the new list.
->>>>>>> main
     """
     string_list = []
     for item in data_list:
@@ -61,19 +52,11 @@ def split_sentence(string_list):
     for items in string_list:
         words = items.split(' ')
         for word in words:
-<<<<<<< HEAD
             word = word.replace('\n', '')
             word = word.replace('\\', '')
             if word != '' and word not in word_list:
                 word_list.append(word)
     return word_list
-=======
-            if (len(word) > 2) and (word not in string_list):
-                string_list.append(word)
-                if word.startswith('['):
-                    string_list.remove(word)
-    return string_list
->>>>>>> main
 
 
 #Add command line argument
