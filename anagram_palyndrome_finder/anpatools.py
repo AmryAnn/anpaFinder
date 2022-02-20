@@ -7,7 +7,7 @@ Created on Thu Feb 10 05:48:02 2022
 
 import itertools
 from html.parser import HTMLParser
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 
 class StringObject:
@@ -93,9 +93,10 @@ class Anagram(StringObject):
         anagramsDict = defaultdict(list)
         self.words = words
         for word in words:
-            anagramsDict["".join(sorted(word))].append(word)
-        for anagrams in anagramsDict.values():
-            print(" ".join(anagrams))
+            if len(word) > 2:
+                anagramsDict[frozenset(dict(Counter(word)).items())].append(word)
+        return [anagrams for key, anagrams in anagramsDict.items() if len(anagrams) > 1]
+
 
     def create_all_anagrams(self, string):
         """Takes string and returns a list of string's anagrams (permutations)."""
@@ -113,7 +114,7 @@ class Palyndrome(StringObject):
         """Checks if mirrored string is equal to string.
         If true, returns the mirrored string."""
         mirror = StringObject.mirror_string(self)
-        if mirror == str(self.string):
+        if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
             return palindrome
 

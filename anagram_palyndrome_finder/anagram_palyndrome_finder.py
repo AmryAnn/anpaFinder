@@ -53,6 +53,8 @@ def split_sentence(string_list):
     for items in string_list:
         words = items.split(' ')
         for word in words:
+            word = word.replace('\n', '')
+            word = word.replace('\\', '')
             if word != '' and word not in word_list:
                 word_list.append(word)
     return word_list
@@ -77,7 +79,7 @@ data_strings = clean_data(parsed_list)
 data_words = split_sentence(data_strings)
 
 anagrams = anpatools.Anagram()
-anagrams.find_anagrams(data_words)
+print(anagrams.find_anagrams(data_words))
 
 palindromes = [anpatools.Palyndrome(n) for n in data_words]
 for palyndrome in palindromes:
