@@ -15,15 +15,19 @@ class StringObject:
     def __init__(self, string):
         self.string = string
         self.sub_string = None
-        self.load_file = None
+        self.loaded_string = None
         self.save_file = None
 
 
     def __repr__(self):
         """Return a string representation of string object"""
         return self.string
+    
+    def substring(self, substring):
+        self.sub_string = substring
+        return self.sub_string
 
-    def append(self, sub_string):
+    def append(self):
         """
         Appends a sub_string to string, and returns the appended string.
 
@@ -35,10 +39,10 @@ class StringObject:
         >>> print(test.append(test.sub_string))
         This is my string, but only for now.
         """
-        self.string = str(self.string) + sub_string
-        return self.string
+        appended = str(self.string) + str(self.sub_string)
+        return appended
 
-    def remove(self, sub_string):
+    def remove(self):
         """
         Removes a sub_string from string, and returns the truncated string.
 
@@ -53,8 +57,8 @@ class StringObject:
         >>> print(test.remove(test.sub_string))
         but only for now.
         """
-        self.string = self.string.replace(sub_string, '')
-        return self.string
+        truncated = self.string.replace(str(self.sub_string), '')
+        return truncated
 
     def mirror_string(self):
         """
@@ -72,9 +76,9 @@ class StringObject:
 
     def load_string(self, load_file):
         """Loads a string from load_file and returns that string."""
-        with open(load_file) as self.string:
-            self.string = self.string.read()
-        return self.string
+        with open(load_file) as load_string:
+            self.loaded_string = load_string.read()
+        return self.loaded_string
 
     def save_string(self, save_file):
         """Saves the string to save_file."""
