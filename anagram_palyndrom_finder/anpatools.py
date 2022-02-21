@@ -22,8 +22,9 @@ class StringObject:
     def __repr__(self):
         """Return a string representation of string object"""
         return self.string
-    
+
     def substring(self, substring):
+        """set value of self.sub_string"""
         self.sub_string = substring
         return self.sub_string
 
@@ -94,15 +95,20 @@ class Anagram(StringObject):
         self.words = []
 
     def find_anagrams(self, words):
-        anagramsDict = defaultdict(list)
+        """Takes a list of words, and hashes the letter frequency of each word
+        as keys in a dictionary and creates a value list to which words having
+        the same letter frequency are appended to the list. Returns the values
+        if the length of the list is greater than 1.
+        """
+        anagrams_dict = defaultdict(list)
         self.words = words
         for word in words:
             if len(word) > 2:
-                anagramsDict[frozenset(dict(Counter(word)).items())].append(word)
-        return [anagrams for key, anagrams in anagramsDict.items() if len(anagrams) > 1]
+                anagrams_dict[frozenset(dict(Counter(word)).items())].append(word)
+        return [anagrams for key, anagrams in anagrams_dict.items() if len(anagrams) > 1]
 
 
-    def create_all_anagrams(self, string):
+    def create_all_anagrams(self):
         """Takes string and returns a list of string's anagrams (permutations)."""
         anagrams = [''.join(perm) for perm in itertools.permutations(self.string)]
         return anagrams
@@ -120,7 +126,7 @@ class Palyndrome(StringObject):
         mirror = StringObject.mirror_string(self)
         if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
-            return palindrome
+        return palindrome
 
 
 class ParserHTML(HTMLParser):
