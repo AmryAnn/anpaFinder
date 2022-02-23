@@ -15,7 +15,7 @@ class StringObject:
     def __init__(self, string):
         self.string = string
         self.sub_string = None
-        self.load_file = None
+        self.loaded_string = None
         self.save_file = None
 
 
@@ -23,7 +23,12 @@ class StringObject:
         """Return a string representation of string object"""
         return self.string
 
-    def append(self, sub_string):
+    def substring(self, substring):
+        """set value of self.sub_string"""
+        self.sub_string = substring
+        return self.sub_string
+
+    def append(self):
         """
         Appends a sub_string to string, and returns the appended string.
 
@@ -35,10 +40,10 @@ class StringObject:
         >>> print(test.append(test.sub_string))
         This is my string, but only for now.
         """
-        self.string = str(self.string) + sub_string
-        return self.string
+        appended = str(self.string) + str(self.sub_string)
+        return appended
 
-    def remove(self, sub_string):
+    def remove(self):
         """
         Removes a sub_string from string, and returns the truncated string.
 
@@ -53,8 +58,8 @@ class StringObject:
         >>> print(test.remove(test.sub_string))
         but only for now.
         """
-        self.string = self.string.replace(sub_string, '')
-        return self.string
+        truncated = self.string.replace(str(self.sub_string), '')
+        return truncated
 
     def mirror_string(self):
         """
@@ -72,9 +77,9 @@ class StringObject:
 
     def load_string(self, load_file):
         """Loads a string from load_file and returns that string."""
-        with open(load_file) as self.string:
-            self.string = self.string.read()
-        return self.string
+        with open(load_file) as load_string:
+            self.loaded_string = load_string.read()
+        return self.loaded_string
 
     def save_string(self, save_file):
         """Saves the string to save_file."""
@@ -90,15 +95,20 @@ class Anagram(StringObject):
         self.words = []
 
     def find_anagrams(self, words):
-        anagramsDict = defaultdict(list)
+        """Takes a list of words, and hashes the letter frequency of each word
+        as keys in a dictionary and creates a value list to which words having
+        the same letter frequency are appended to the list. Returns the values
+        if the length of the list is greater than 1.
+        """
+        anagrams_dict = defaultdict(list)
         self.words = words
         for word in words:
             if len(word) > 2:
-                anagramsDict[frozenset(dict(Counter(word)).items())].append(word)
-        return [anagrams for key, anagrams in anagramsDict.items() if len(anagrams) > 1]
+                anagrams_dict[frozenset(dict(Counter(word)).items())].append(word)
+        return [anagrams for key, anagrams in anagrams_dict.items() if len(anagrams) > 1]
 
 
-    def create_all_anagrams(self, string):
+    def create_all_anagrams(self):
         """Takes string and returns a list of string's anagrams (permutations)."""
         anagrams = [''.join(perm) for perm in itertools.permutations(self.string)]
         return anagrams
@@ -116,7 +126,7 @@ class Palyndrome(StringObject):
         mirror = StringObject.mirror_string(self)
         if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
-            return palindrome
+        return palindrome
 
 
 class ParserHTML(HTMLParser):
