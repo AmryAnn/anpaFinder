@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb 10 05:59:03 2022
+Created on Wed Feb 23 12:14:13 2022
 
 @author: aarid
+scrape and clean web page into lists of text from <p> tags and list of words.
+
 """
 
+from html.parser import HTMLParser
 import urllib.request
-import argparse
 import string
 
 import anpatools
-
+ 
+#
 def access_webpage(url):
     """
     Opens and reads a webpage from URL and returns raw HTML from webpage.
@@ -18,6 +21,25 @@ def access_webpage(url):
     webpage = urllib.request.urlopen(url)
     content = webpage.read().decode()
     return content
+
+class ParserHTML(HTMLParser):
+    """Inherits from HTMLParser in python standard library.
+    Parses text from inside <p> tags, adds text to a list, returns the list"""
+    data_list = []
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.is_data = False
+    def handle_starttag(self, tag, attrs): #why the attrs parameter?
+        if tag == 'p':
+            self.is_data = True
+    def handle_endtag(self, tag):
+        if tag == 'p':
+            self.is_data = False
+    def handle_data(self, data):
+        if self.is_data:
+            self.data_list.append(data)
+        return self.data_list
+
 
 def parse_page(content):
     """
@@ -57,46 +79,3 @@ def split_sentence(string_list):
             if word != '' and word not in word_list:
                 word_list.append(word)
     return word_list
-
-
-#Add command line argument
-parser = argparse.ArgumentParser(description='Process web url.')
-parser.add_argument('--url', type=str, required=True,\
-                    help='Web address to the page to analyze.')
-
-
-#Assign command line arguments
-args = parser.parse_args()
-URL = args.url
-
-# # #TEST
-# URL = "https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html"
-
-#Function calls
-web_content = access_webpage(URL)
-parsed_list = parse_page(web_content)
-data_strings = clean_data(parsed_list)
-data_words = split_sentence(data_strings)
-
-
-anagrams = anpatools.Anagram()
-anagram_groups = anagrams.find_anagrams(data_words)
-print(anagram_groups)
-
-
-palindromes = [anpatools.Palyndrome(n) for n in data_words]
-for palyndrome in palindromes:
-    pal = palyndrome.find_palindromes()
-    if pal is not None:
-        print(pal)
-
-# #Test
-# URL = "https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html"
-# web_content = access_webpage(URL)
-# print(web_content)
-# parsed_list = parse_page(web_content)
-# print(parsed_list)
-# data_strings = clean_data(parsed_list)
-# print(data_strings)
-# data_words = split_sentence(data_strings)
-# print(data_words)

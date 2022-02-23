@@ -6,7 +6,6 @@ Created on Thu Feb 10 05:48:02 2022
 """
 
 import itertools
-from html.parser import HTMLParser
 from collections import Counter, defaultdict
 
 
@@ -127,22 +126,3 @@ class Palyndrome(StringObject):
         if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
         return palindrome
-
-
-class ParserHTML(HTMLParser):
-    """Inherits from HTMLParser in python standard library.
-    Parses text from inside <p> tags, adds text to a list, returns the list"""
-    data_list = []
-    def __init__(self):
-        HTMLParser.__init__(self)
-        self.is_data = False
-    def handle_starttag(self, tag, attrs):
-        if tag == 'p':
-            self.is_data = True
-    def handle_endtag(self, tag):
-        if tag == 'p':
-            self.is_data = False
-    def handle_data(self, data):
-        if self.is_data:
-            self.data_list.append(data)
-        return self.data_list
