@@ -125,4 +125,4 @@ class Palyndrome(StringObject):
         mirror = StringObject.mirror_string(self)
         if mirror == str(self.string) and len(mirror) > 2:
             palindrome = mirror
-        return palindrome
+            return palindrome

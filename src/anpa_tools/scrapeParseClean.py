@@ -11,7 +11,7 @@ from html.parser import HTMLParser
 import urllib.request
 import string
 
-import anpatools
+from anpa_tools import anpatools
  
 #
 def access_webpage(url):
@@ -46,7 +46,7 @@ def parse_page(content):
     Takes raw html as input and parses text from <p> tags.
     Returns a list of parsed text
     """
-    pars = anpatools.ParserHTML()
+    pars = ParserHTML()
     pars.feed(str(content))
     parsed_data = pars.data_list
     return parsed_data
