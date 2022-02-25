@@ -15,7 +15,7 @@ $ Coming Soon
  - In python environment: 
    ```
    $ python3 anagram_palyndrome_finder.py --url "<webpage url>"
-		```
+   ```
  - In bash shell
    ```
    $ ./AP_finder.bash -w "<webpage url>"
