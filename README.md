@@ -1,5 +1,5 @@
 # AnPaFinder
-Version 1.2.1 released 04/2022
+Version 1.2.2 released 04/2022
 
 A simple package built to find anagrams and palindromes from a webpage. 
 Includes functionality to store and process strings and substrings, 
