@@ -1,5 +1,5 @@
 # AnPaFinder
-Version 1.2.0 released 04/2022
+Version 1.2.1 released 04/2022
 
 A simple package built to find anagrams and palindromes from a webpage. 
 Includes functionality to store and process strings and substrings, 
@@ -14,7 +14,8 @@ $ python3 -m pip install AnPaFinder
 -Find the anagrams and palindromes from a webpage in one of three possible ways:
  - Option 1. In python environment:
    ```
-   anpa_tools.anpatools.find_anpas("<webpage url>")
+   import anpa_tools.anpatools as anp
+   anp.find_anpas("<webpage url>")
    ```
  - Option 2. Run anpatools.py from command line:
    ```
