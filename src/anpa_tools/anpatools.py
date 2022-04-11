@@ -198,6 +198,26 @@ def split_sentence(string_list):
                 word_list.append(word)
     return word_list
 
+def find_anpas(URLin):
+    """Takes a web address (string) as input and returns a list of anagram
+    sets and palindromes from the web page."""
+    web_content = access_webpage(URLin)
+    parsed_list = parse_page(web_content)
+    data_strings = clean_data(parsed_list)
+    data_words = split_sentence(data_strings)
+    print("\n\nAnagrams:")
+    anagrams = Anagram()
+    anagram_groups = anagrams.find_anagrams(data_words)
+    print(anagram_groups)
+
+    print("\n\nPalindromes:")
+    palindromes = [Palyndrome(n) for n in data_words]
+    for palyndrome in palindromes:
+        pal = palyndrome.find_palindromes()
+        if pal is not None:
+            print(pal)
+
+
 if __name__ == '__main__':
     #Add command line argument
     parser = argparse.ArgumentParser(description='Process web url.')
