@@ -10,7 +10,7 @@ Tests for anpatools
 import unittest
 import os
 
-from anagram_palyndrom_finder import anpatools
+import anpatools
 
 testlist = ['dog', 'god', 'onyx', 'silent', 'listen']
 

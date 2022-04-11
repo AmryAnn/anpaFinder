@@ -1,5 +1,5 @@
 # AnPaFinder
-Version 1.0.0.a0 released 02/2022
+Version 1.1.2 released 04/2022
 
 
 This package is under construction. It is built off of this repository:
@@ -11,12 +11,12 @@ This package is under construction. It is built off of this repository:
 $ python3 -m pip install AnPaFinder
 ```
 
--Find the anagrams and palindromes from a webpage using the scripts in the **anpaFinder GitHub repository** under `/bin`:
+-Find the anagrams and palindromes from a webpage:
  - In python environment: 
    ```
-   $ python3 anagram_palyndrome_finder.py --url "<webpage url>"
+   $ python3 anpatools.py --url "<webpage url>"
    ```
- - In bash shell
+ - In bash shell using the scripts in the **Home Page - anpaFinder GitHub repository** under `/bin`:
    ```
    $ ./AP_finder.bash -w "<webpage url>"
    ```
