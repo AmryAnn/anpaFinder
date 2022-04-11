@@ -7,4 +7,4 @@ while getopts "w:" flag; do
 done
 echo $WEBPAGE #parameter argument: webpage url
 
-python anagram_palyndrome_finder.py --url $WEBPAGE	#calls python script
+python anpatools.py --url $WEBPAGE	#calls python script

@@ -1,9 +1,9 @@
 # AnPaFinder
-Version 1.0.0.a0 released 02/2022
+Version 1.2.2 released 04/2022
 
-
-This package is under construction. It is built off of this repository:
-    https://github.com/AmryAnn/PythonCodeSample-Strings-Anagram_Palindrome_Finder
+A simple package built to find anagrams and palindromes from a webpage. 
+Includes functionality to store and process strings and substrings, 
+and easily parse text from a webpage.
 
 ## Installation
 `AnPaFinder` can be installed via `pip`:
@@ -11,14 +11,20 @@ This package is under construction. It is built off of this repository:
 $ python3 -m pip install AnPaFinder
 ```
 
--Find the anagrams and palindromes from a webpage using the scripts in the **anpaFinder GitHub repository** under `/bin`:
- - In python environment: 
+-Find the anagrams and palindromes from a webpage in one of three possible ways:
+ - Option 1. In python environment:
    ```
-   $ python3 anagram_palyndrome_finder.py --url "<webpage url>"
+   import anpa_tools.anpatools as anp
+   anp.find_anpas("<webpage url>")
    ```
- - In bash shell
+ - Option 2. Run anpatools.py from command line:
+   ```
+   $ python3 anpatools.py --url "<webpage url>"
+   ```
+ - Option 3. Using the shell script in the **Home Page - anpaFinder GitHub repository** under `/bin`:
    ```
    $ ./AP_finder.bash -w "<webpage url>"
    ```
 -Play with classes and functions in `anpa_tools` package.
+ - More info to come
 		
