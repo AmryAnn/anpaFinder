@@ -60,7 +60,7 @@ def clean_data(data_list):
     string_list = []
     for item in data_list:
         item = item.lower()
-        item = item.translate(str.maketrans('', '', string.punctuation))
+        item = item.translate(str.maketrans('', '', strimp.punctuation))
         string_list.append(item)
     return string_list
 
